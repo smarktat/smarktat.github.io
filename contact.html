@@ -5,27 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Smark Tat</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = { theme: { extend: { colors: { brand: { gold: '#FFD700', dark: '#000000' } } } } }
     </script>
     <style>body { background-color: #000000; color: #F5F5F5; }</style>
 </head>
-<body class="flex flex-col min-h-screen">
-    <nav class="h-20 border-b border-gray-900 px-4 flex justify-between items-center bg-brand-dark">
-        <a href="index.html" class="font-black text-2xl uppercase">Smark <span class="text-brand-gold">Tat</span></a>
-        <a href="index.html" class="text-gray-400 font-bold uppercase text-xs">Back Home</a>
+<body class="antialiased flex flex-col min-h-screen">
+    <nav class="bg-brand-dark bg-opacity-95 backdrop-blur-md fixed w-full z-50 top-0 left-0 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-2xl uppercase text-white">Smark <span class="text-brand-gold">Tat</span></a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Home</a>
+                    <a href="about.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">About</a>
+                    <a href="music.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Music</a>
+                    <a href="comments.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Fan Zone</a>
+                    <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-bold uppercase tracking-wider">Bookings</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-gray-800 absolute w-full left-0">
+            <div class="px-4 pt-2 pb-6 flex flex-col items-center">
+                <a href="index.html" class="text-gray-300 font-semibold text-lg py-3">Home</a>
+                <a href="about.html" class="text-gray-300 font-semibold text-lg py-3">About</a>
+                <a href="music.html" class="text-gray-300 font-semibold text-lg py-3">Music</a>
+                <a href="comments.html" class="text-gray-300 font-semibold text-lg py-3">Fan Zone</a>
+                <a href="contact.html" class="bg-brand-gold text-brand-dark font-bold text-lg py-3 rounded-lg mt-4 w-full text-center">Bookings</a>
+            </div>
+        </div>
     </nav>
-    <main class="flex-grow flex items-center justify-center px-4 py-12">
-        <div class="max-w-xl w-full bg-gray-900 border border-gray-800 p-8 rounded-3xl">
-            <h1 class="text-3xl font-black uppercase mb-2">Book Smark Tat</h1>
-            <p class="text-gray-400 mb-8">For performances, features, and business inquiries.</p>
-            <form action="https://formspree.io/f/your-id" method="POST" class="space-y-4">
-                <input type="text" name="name" placeholder="Full Name" class="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none focus:border-brand-gold" required>
-                <input type="email" name="email" placeholder="Email Address" class="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none focus:border-brand-gold" required>
-                <textarea name="message" placeholder="Project details / Event details" class="w-full bg-black border border-gray-700 p-4 rounded-xl h-40 outline-none focus:border-brand-gold" required></textarea>
-                <button type="submit" class="w-full bg-brand-gold text-brand-dark font-black py-4 rounded-xl uppercase tracking-widest">Send Inquiry</button>
+
+    <main class="flex-grow flex items-center justify-center px-4 pt-32 pb-12">
+        <div class="max-w-xl w-full bg-gray-900 border border-gray-800 p-10 rounded-3xl">
+            <h1 class="text-3xl font-black uppercase mb-8">Contact</h1>
+            <form action="https://formspree.io/f/your-id" method="POST" class="space-y-6">
+                <input type="text" name="name" placeholder="Name" class="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none focus:border-brand-gold" required>
+                <input type="email" name="email" placeholder="Email" class="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none focus:border-brand-gold" required>
+                <textarea name="message" placeholder="Message" class="w-full bg-black border border-gray-700 p-4 rounded-xl h-40 outline-none focus:border-brand-gold" required></textarea>
+                <button type="submit" class="w-full bg-brand-gold text-brand-dark font-black py-4 rounded-xl uppercase">Send</button>
             </form>
         </div>
     </main>
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+            document.getElementById('menu-icon').classList.toggle('hidden');
+            document.getElementById('close-icon').classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
