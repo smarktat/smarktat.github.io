@@ -7,62 +7,80 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { brand: { gold: '#FFD700', dark: '#000000' } }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: { brand: { gold: '#FFD700', dark: '#000000' } } } } }
     </script>
     <style>body { background-color: #000000; color: #F5F5F5; }</style>
 </head>
 <body class="antialiased flex flex-col min-h-screen">
-    <nav class="bg-brand-dark fixed w-full z-50 top-0 border-b border-gray-900">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <a href="index.html" class="font-black text-2xl text-white uppercase">Smark <span class="text-brand-gold">Tat</span></a>
-            <div class="hidden md:flex space-x-8 uppercase font-bold text-xs">
-                <a href="index.html" class="text-gray-400">Home</a>
-                <a href="about.html" class="text-gray-400">About</a>
-                <a href="music.html" class="text-gray-400">Music</a>
-                <a href="comments.html" class="text-brand-gold">Fan Zone</a>
-                <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full">Bookings</a>
+    <nav class="bg-brand-dark bg-opacity-95 backdrop-blur-md fixed w-full z-50 top-0 left-0 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-2xl tracking-tighter text-white uppercase">Smark <span class="text-brand-gold">Tat</span></a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Home</a>
+                    <a href="about.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">About</a>
+                    <a href="music.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Music</a>
+                    <a href="comments.html" class="text-brand-gold font-semibold text-sm uppercase tracking-wider">Fan Zone</a>
+                    <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-bold uppercase tracking-wider">Bookings</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-gray-800 absolute w-full left-0">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col items-center">
+                <a href="index.html" class="text-gray-300 font-semibold text-lg py-3">Home</a>
+                <a href="about.html" class="text-gray-300 font-semibold text-lg py-3">About</a>
+                <a href="music.html" class="text-gray-300 font-semibold text-lg py-3">Music</a>
+                <a href="comments.html" class="text-brand-gold font-semibold text-lg py-3">Fan Zone</a>
+                <a href="contact.html" class="bg-brand-gold text-brand-dark font-bold text-lg py-3 rounded-lg mt-4 w-full text-center">Bookings</a>
             </div>
         </div>
     </nav>
+
     <main class="flex-grow pt-32 px-4 max-w-3xl mx-auto w-full">
-        <h1 class="text-4xl font-black uppercase mb-10 text-center">Fan Zone</h1>
-        <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800 mb-12">
-            <h2 class="text-xl font-bold mb-4">Leave a Comment</h2>
+        <h1 class="text-4xl font-black uppercase mb-10 text-center">Fan Comments</h1>
+        <div class="bg-gray-900 p-8 rounded-3xl border border-gray-800 mb-12">
             <form id="commentForm" class="space-y-4">
-                <input type="text" id="fanName" placeholder="Your Name" class="w-full bg-black border border-gray-700 p-3 rounded-lg focus:border-brand-gold outline-none" required>
-                <textarea id="fanMessage" placeholder="Drop your message..." class="w-full bg-black border border-gray-700 p-3 rounded-lg h-32 focus:border-brand-gold outline-none" required></textarea>
-                <button type="submit" class="bg-brand-gold text-brand-dark font-black w-full py-3 rounded-lg uppercase">Post Comment</button>
+                <input type="text" id="fanName" placeholder="Name" class="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none focus:border-brand-gold" required>
+                <textarea id="fanMessage" placeholder="Your comment..." class="w-full bg-black border border-gray-700 p-4 rounded-xl h-32 outline-none focus:border-brand-gold" required></textarea>
+                <button type="submit" class="bg-brand-gold text-brand-dark font-black w-full py-4 rounded-xl uppercase tracking-widest">Post to Repository</button>
             </form>
         </div>
         <div id="commentsDisplay" class="space-y-6"></div>
     </main>
+
     <script>
-        async function loadComments() {
-            const res = await fetch('comments.json');
-            const data = await res.json();
-            const container = document.getElementById('commentsDisplay');
-            container.innerHTML = data.map(c => `
-                <div class="flex gap-4 p-4 border-b border-gray-800">
-                    <img src="${c.image || 'https://via.placeholder.com/50'}" class="w-12 h-12 rounded-full border border-brand-gold">
-                    <div>
-                        <h4 class="font-bold text-brand-gold">${c.name}</h4>
-                        <p class="text-gray-300 text-sm">${c.message}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-        document.getElementById('commentForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('fanName').value;
-            const message = document.getElementById('fanMessage').value;
-            alert('Triggering GitHub Action to update JSON...');
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            document.getElementById('menu-icon').classList.toggle('hidden');
+            document.getElementById('close-icon').classList.toggle('hidden');
         });
+        async function loadComments() {
+            try {
+                const res = await fetch('comments.json');
+                const data = await res.json();
+                document.getElementById('commentsDisplay').innerHTML = data.map(c => `
+                    <div class="flex gap-4 p-6 bg-gray-900 rounded-2xl border border-gray-800">
+                        <img src="${c.image}" class="w-14 h-14 rounded-full border-2 border-brand-gold object-cover">
+                        <div>
+                            <h4 class="font-bold text-white">${c.name}</h4>
+                            <p class="text-gray-400 mt-1">${c.message}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch(e) {}
+        }
         loadComments();
     </script>
 </body>
