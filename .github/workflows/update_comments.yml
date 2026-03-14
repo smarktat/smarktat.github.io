@@ -1,26 +1,29 @@
-name: Comment Backend
+name: Backend Process
 on:
-  repository_dispatch:
-    types: [new_comment]
+  issues:
+    types: [opened]
 jobs:
-  update_json:
+  process_comment:
+    if: contains(github.event.issue.title, 'COMMENT_ENTRY')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.MY_PERSONAL_TOKEN }}
-      - name: Process Comment
+      - name: Update JSON
         run: |
-          NAME="${{ github.event.client_payload.name }}"
-          PIC="${{ github.event.client_payload.pic }}"
-          TEXT="${{ github.event.client_payload.text }}"
+          COMMENT_JSON='${{ github.event.issue.body }}'
           if [ ! -f comments.json ]; then echo "[]" > comments.json; fi
-          jq ". += [{\"name\": \"$NAME\", \"pic\": \"$PIC\", \"text\": \"$TEXT\"}]" comments.json > temp.json && mv temp.json comments.json
-      - name: Save Changes
+          jq ". += [$COMMENT_JSON]" comments.json > temp.json && mv temp.json comments.json
+      - name: Commit Changes
         run: |
-          git config --global user.name "SmarkTat-Bot"
-          git config --global user.email "bot@smarktat.github.io"
+          git config --global user.name "Smark-Backend"
+          git config --global user.email "smarktat@github.io"
           git add comments.json
-          git commit -m "New fan comment added"
+          git commit -m "Update Fan Wall"
           git push
+      - name: Close Issue
+        run: gh issue close ${{ github.event.issue.number }} --reason "completed"
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_TOKEN }}
