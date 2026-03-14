@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fan Wall | Smark Tat</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;900&display=swap');
-body { font-family: 'Inter', sans-serif; background-color: #050505; }
-.hero-title { font-family: 'Syncopate', sans-serif; }
-.glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fan Zone | Smark Tat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: { gold: '#FFD700', dark: '#000000' } }
+                }
+            }
+        }
+    </script>
+    <style>body { background-color: #000000; color: #F5F5F5; }</style>
 </head>
-<body class="text-zinc-100 antialiased">
-<nav class="fixed w-full z-50 glass">
-<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-<a href="index.html" class="hero-title text-2xl font-bold tracking-tighter text-emerald-500">SMARK TAT</a>
-</div>
-</nav>
-<main class="pt-40 px-6 pb-20 max-w-4xl mx-auto">
-<div class="mb-12">
-<h2 class="hero-title text-4xl font-bold mb-2 uppercase text-center">Fan Wall</h2>
-<p class="text-zinc-500 text-center text-sm tracking-widest uppercase">Verified Fan Feedback</p>
-</div>
-<form id="commentForm" class="glass p-8 rounded-3xl mb-20 space-y-6">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<input type="text" id="name" placeholder="Name" required class="bg-zinc-900/50 border border-zinc-800 p-5 rounded-2xl focus:outline-none focus:border-emerald-500 transition">
-<input type="url" id="pic" placeholder="Profile Pic URL" required class="bg-zinc-900/50 border border-zinc-800 p-5 rounded-2xl focus:outline-none focus:border-emerald-500 transition">
-</div>
-<textarea id="msg" placeholder="Write your message..." required class="w-full bg-zinc-900/50 border border-zinc-800 p-5 rounded-2xl h-32 focus:outline-none focus:border-emerald-500 transition"></textarea>
-<button type="submit" class="w-full py-5 bg-emerald-500 text-black font-black uppercase tracking-widest rounded-2xl hover:bg-white transition-all transform hover:scale-[1.02]">Authorize and Post</button>
-</form>
-<div id="commentsList" class="grid grid-cols-1 gap-6"></div>
-</main>
-<script>
-const loadComments = async () => {
-try {
-const res = await fetch('comments.json');
-const data = await res.json();
-document.getElementById('commentsList').innerHTML = data.map(c => `
-<div class="glass p-6 rounded-2xl flex items-center gap-6 border-l-4 border-emerald-500">
-<img src="${c.pic}" class="w-16 h-16 rounded-full object-cover grayscale hover:grayscale-0 transition duration-500">
-<div><h4 class="font-black uppercase text-emerald-500 tracking-tighter">${c.name}</h4><p class="text-zinc-400 text-sm mt-1 font-light">${c.text}</p></div>
-</div>`).join('');
-} catch (e) {}
-};
-document.getElementById('commentForm').onsubmit = (e) => {
-e.preventDefault();
-const name = document.getElementById('name').value;
-const pic = document.getElementById('pic').value;
-const msg = document.getElementById('msg').value;
-const body = encodeURIComponent(`{"name":"${name}","pic":"${pic}","text":"${msg}"}`);
-window.open(`https://github.com/smarktat/smarktat.github.io/issues/new?title=COMMENT_ENTRY&body=${body}`, '_blank');
-};
-window.onload = loadComments;
-</script>
+<body class="antialiased flex flex-col min-h-screen">
+    <nav class="bg-brand-dark fixed w-full z-50 top-0 border-b border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <a href="index.html" class="font-black text-2xl text-white uppercase">Smark <span class="text-brand-gold">Tat</span></a>
+            <div class="hidden md:flex space-x-8 uppercase font-bold text-xs">
+                <a href="index.html" class="text-gray-400">Home</a>
+                <a href="about.html" class="text-gray-400">About</a>
+                <a href="music.html" class="text-gray-400">Music</a>
+                <a href="comments.html" class="text-brand-gold">Fan Zone</a>
+                <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full">Bookings</a>
+            </div>
+        </div>
+    </nav>
+    <main class="flex-grow pt-32 px-4 max-w-3xl mx-auto w-full">
+        <h1 class="text-4xl font-black uppercase mb-10 text-center">Fan Zone</h1>
+        <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800 mb-12">
+            <h2 class="text-xl font-bold mb-4">Leave a Comment</h2>
+            <form id="commentForm" class="space-y-4">
+                <input type="text" id="fanName" placeholder="Your Name" class="w-full bg-black border border-gray-700 p-3 rounded-lg focus:border-brand-gold outline-none" required>
+                <textarea id="fanMessage" placeholder="Drop your message..." class="w-full bg-black border border-gray-700 p-3 rounded-lg h-32 focus:border-brand-gold outline-none" required></textarea>
+                <button type="submit" class="bg-brand-gold text-brand-dark font-black w-full py-3 rounded-lg uppercase">Post Comment</button>
+            </form>
+        </div>
+        <div id="commentsDisplay" class="space-y-6"></div>
+    </main>
+    <script>
+        async function loadComments() {
+            const res = await fetch('comments.json');
+            const data = await res.json();
+            const container = document.getElementById('commentsDisplay');
+            container.innerHTML = data.map(c => `
+                <div class="flex gap-4 p-4 border-b border-gray-800">
+                    <img src="${c.image || 'https://via.placeholder.com/50'}" class="w-12 h-12 rounded-full border border-brand-gold">
+                    <div>
+                        <h4 class="font-bold text-brand-gold">${c.name}</h4>
+                        <p class="text-gray-300 text-sm">${c.message}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        document.getElementById('commentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('fanName').value;
+            const message = document.getElementById('fanMessage').value;
+            alert('Triggering GitHub Action to update JSON...');
+        });
+        loadComments();
+    </script>
 </body>
 </html>
