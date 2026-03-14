@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smark Tat | About</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-white font-sans overflow-x-hidden">
+<nav class="bg-zinc-900 border-b border-zinc-800 fixed w-full top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+<a href="index.html" class="text-2xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">SMARK TAT</a>
+<div class="hidden md:flex space-x-8">
+<a href="index.html" class="hover:text-emerald-400 transition">Home</a>
+<a href="about.html" class="text-emerald-400 font-medium">About</a>
+<a href="music.html" class="hover:text-emerald-400 transition">Music</a>
+<a href="comments.html" class="hover:text-emerald-400 transition">Comments</a>
+<a href="contact.html" class="hover:text-emerald-400 transition">Contact</a>
+<a href="developer.html" class="hover:text-emerald-400 transition">Developer</a>
+</div>
+<button id="menuBtn" class="md:hidden text-zinc-300 focus:outline-none">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+</button>
+</div>
+<div id="mobileMenu" class="hidden bg-zinc-900 border-b border-zinc-800 px-4 pt-2 pb-4 space-y-2">
+<a href="index.html" class="block hover:text-emerald-400 transition py-2">Home</a>
+<a href="about.html" class="block text-emerald-400 font-medium py-2">About</a>
+<a href="music.html" class="block hover:text-emerald-400 transition py-2">Music</a>
+<a href="comments.html" class="block hover:text-emerald-400 transition py-2">Comments</a>
+<a href="contact.html" class="block hover:text-emerald-400 transition py-2">Contact</a>
+<a href="developer.html" class="block hover:text-emerald-400 transition py-2">Developer</a>
+</div>
+</nav>
+<main class="mt-24 max-w-4xl mx-auto px-6 mb-20">
+<h1 class="text-4xl md:text-5xl font-bold mb-8 border-b-4 border-emerald-500 inline-block pb-2">The Story</h1>
+<div class="bg-zinc-900 p-8 rounded-2xl shadow-xl border border-zinc-800">
+<h2 class="text-2xl font-bold text-emerald-400 mb-4">Ssekito Mark AbdulRahim</h2>
+<p class="text-zinc-300 leading-relaxed text-lg mb-6">
+At just 18 years old, Smark Tat is bringing a fresh wave of energy to the Ugandan music scene. Born Ssekito Mark AbdulRahim, he has always had rhythm and lyrics running through his veins.
+</p>
+<p class="text-zinc-300 leading-relaxed text-lg">
+Bursting onto the scene with his debut single <strong>"Ndongo Yoka"</strong>, Smark Tat proves that age is just a number when it comes to raw talent and musical vision. This is just the beginning of a legendary portfolio.
+</p>
+</div>
+</main>
+<script>
+document.getElementById('menuBtn').addEventListener('click', function() {
+document.getElementById('mobileMenu').classList.toggle('hidden');
+});
+</script>
+</body>
+</html>
