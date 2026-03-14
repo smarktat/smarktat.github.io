@@ -5,21 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer | Icii White</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { gold: '#FFD700', dark: '#000000' } } } } }
+    </script>
     <style>body { background-color: #000000; color: #F5F5F5; }</style>
 </head>
-<body class="flex flex-col min-h-screen">
-    <main class="flex-grow flex flex-col items-center justify-center px-4">
-        <div class="text-center">
-            <h2 class="text-brand-gold font-bold uppercase tracking-widest mb-4">The Architect</h2>
-            <h1 class="text-5xl md:text-7xl font-black uppercase mb-6">Icii White</h1>
-            <p class="max-w-lg text-gray-400 text-lg mb-10">Crafting high-performance digital experiences for the next generation of African superstars. Specialized in clean code, rapid deployment, and modern UI/UX.</p>
-            <div class="flex gap-6 justify-center">
-                <a href="index.html" class="text-white border border-white px-8 py-3 rounded-full font-bold uppercase hover:bg-white hover:text-black transition">View Smark Tat Portfolio</a>
+<body class="antialiased flex flex-col min-h-screen">
+    <nav class="bg-brand-dark bg-opacity-95 backdrop-blur-md fixed w-full z-50 top-0 left-0 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-black text-2xl uppercase text-white">Smark <span class="text-brand-gold">Tat</span></a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Home</a>
+                    <a href="about.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">About</a>
+                    <a href="music.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Music</a>
+                    <a href="comments.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Fan Zone</a>
+                    <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-bold uppercase tracking-wider">Bookings</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-gray-900 absolute w-full left-0">
+            <div class="px-4 pt-2 pb-6 flex flex-col items-center">
+                <a href="index.html" class="text-gray-300 font-semibold text-lg py-3">Home</a>
+                <a href="about.html" class="text-gray-300 font-semibold text-lg py-3">About</a>
+                <a href="music.html" class="text-gray-300 font-semibold text-lg py-3">Music</a>
+                <a href="comments.html" class="text-gray-300 font-semibold text-lg py-3">Fan Zone</a>
+                <a href="contact.html" class="bg-brand-gold text-brand-dark font-bold text-lg py-3 rounded-lg mt-4 w-full text-center">Bookings</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col items-center justify-center px-4 pt-20">
+        <h2 class="text-brand-gold font-bold uppercase tracking-widest mb-4">Lead Developer</h2>
+        <h1 class="text-5xl md:text-8xl font-black uppercase mb-8">Icii White</h1>
+        <p class="max-w-xl text-center text-gray-400 text-lg leading-relaxed">
+            Specialized in high-performance digital architecture. Icii White builds scalable, secure, and visually dominant platforms for world-class artists.
+        </p>
     </main>
-    <footer class="p-8 text-center text-gray-600 text-xs uppercase tracking-widest">
-        &copy; 2026 Icii White Designs.
+
+    <footer class="p-8 text-center border-t border-gray-800">
+        <p class="text-gray-600 text-xs uppercase tracking-widest">&copy; 2026 Icii White. All rights reserved.</p>
     </footer>
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+            document.getElementById('menu-icon').classList.toggle('hidden');
+            document.getElementById('close-icon').classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
