@@ -1,6 +1,14 @@
 title: Smark Tat
 description: Young Ugandan musician, passionate artist, content creator.
 author: Icii White
+twitter:
+  username: smarktat
+  card: summary_large_image
+social:
+  name: Smark Tat
+  links:
+    - https://twitter.com/smarktat
+    - https://github.com/smarktat
 logo: https://smarktat.github.io/favicon.png
 image: https://smarktat.github.io/og.png
 plugins:
