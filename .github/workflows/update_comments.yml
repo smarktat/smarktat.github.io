@@ -1,28 +1,26 @@
-name: Update Fan Comments
+name: Comment Backend
 on:
   repository_dispatch:
     types: [new_comment]
 jobs:
-  update-json:
+  update_json:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.MY_PERSONAL_TOKEN }}
-      - name: Update comments.json
+      - name: Process Comment
         run: |
           NAME="${{ github.event.client_payload.name }}"
           PIC="${{ github.event.client_payload.pic }}"
           TEXT="${{ github.event.client_payload.text }}"
-          if [ ! -f comments.json ]; then
-            echo "[]" > comments.json
-          fi
+          if [ ! -f comments.json ]; then echo "[]" > comments.json; fi
           jq ". += [{\"name\": \"$NAME\", \"pic\": \"$PIC\", \"text\": \"$TEXT\"}]" comments.json > temp.json && mv temp.json comments.json
-      - name: Commit and Push
+      - name: Save Changes
         run: |
-          git config --global user.name "Smark-Tat-Bot"
-          git config --global user.email "bot@smarktat.com"
+          git config --global user.name "SmarkTat-Bot"
+          git config --global user.email "bot@smarktat.github.io"
           git add comments.json
-          git commit -m "New comment from $NAME"
+          git commit -m "New fan comment added"
           git push
