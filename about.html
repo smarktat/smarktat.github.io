@@ -10,57 +10,101 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Open Sans', 'sans-serif'], heading: ['Montserrat', 'sans-serif'] },
-                    colors: { brand: { gold: '#FFD700', dark: '#000000', gray: '#000000' } }
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#FFD700',
+                            dark: '#000000',
+                            gray: '#000000'
+                        }
+                    }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #000000; color: #F5F5F5; }
-        .about-bg { background: linear-gradient(to right, #000000 30%, transparent), url('me.png') center/cover no-repeat; }
+        body {
+            background-color: #000000;
+            color: #F5F5F5;
+            overflow-x: hidden;
+        }
+        .about-hero {
+            background: linear-gradient(to right, #000000 40%, transparent), url('me.png') center/cover no-repeat;
+        }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen">
-    <nav class="bg-brand-dark bg-opacity-95 backdrop-blur-md fixed w-full z-50 top-0 left-0 border-b border-gray-900">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <a href="index.html" class="font-heading font-black text-2xl tracking-tighter text-white uppercase">Smark <span class="text-brand-gold">Tat</span></a>
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="index.html" class="text-gray-300 hover:text-brand-gold font-semibold text-sm uppercase tracking-wider">Home</a>
-                <a href="about.html" class="text-brand-gold font-semibold text-sm uppercase tracking-wider">About</a>
-                <a href="music.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Music</a>
-                <a href="comments.html" class="text-gray-300 hover:text-white font-semibold text-sm uppercase tracking-wider">Fan Zone</a>
-                <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-bold uppercase tracking-wider">Bookings</a>
+    <nav class="bg-brand-gray bg-opacity-95 backdrop-blur-md fixed w-full z-50 top-0 left-0 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-heading font-black text-2xl tracking-tighter text-white uppercase">
+                        Smark <span class="text-brand-gold">Tat</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition duration-300 font-semibold text-sm uppercase tracking-wider">Home</a>
+                    <a href="about.html" class="text-brand-gold font-semibold text-sm uppercase tracking-wider">About</a>
+                    <a href="music.html" class="text-gray-300 hover:text-white transition duration-300 font-semibold text-sm uppercase tracking-wider">Music</a>
+                    <a href="comments.html" class="text-gray-300 hover:text-white transition duration-300 font-semibold text-sm uppercase tracking-wider">Fan Zone</a>
+                    <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-bold uppercase tracking-wider">Bookings</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <button id="mobile-menu-btn" class="md:hidden text-gray-300"><svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round"/></svg></button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-gray-900 absolute w-full left-0 flex flex-col items-center py-6 space-y-4">
-            <a href="index.html" class="text-gray-300 font-semibold text-lg">Home</a>
-            <a href="about.html" class="text-brand-gold font-semibold text-lg">About</a>
-            <a href="music.html" class="text-gray-300 font-semibold text-lg">Music</a>
-            <a href="comments.html" class="text-gray-300 font-semibold text-lg">Fan Zone</a>
-            <a href="contact.html" class="bg-brand-gold text-brand-dark px-8 py-2 rounded-full font-bold uppercase">Bookings</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-gray border-b border-gray-800 absolute w-full left-0 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col items-center">
+                <a href="index.html" class="block w-full text-center text-gray-300 font-semibold text-lg py-3">Home</a>
+                <a href="about.html" class="block w-full text-center text-brand-gold font-semibold text-lg py-3">About</a>
+                <a href="music.html" class="block w-full text-center text-gray-300 font-semibold text-lg py-3">Music</a>
+                <a href="comments.html" class="block w-full text-center text-gray-300 font-semibold text-lg py-3">Fan Zone</a>
+                <a href="contact.html" class="block w-full text-center bg-brand-gold text-brand-dark font-bold text-lg py-3 rounded-lg mt-4">Bookings</a>
+            </div>
         </div>
     </nav>
+
     <main class="flex-grow pt-20">
-        <section class="min-h-[80vh] flex items-center about-bg px-4 lg:px-20">
-            <div class="max-w-2xl">
-                <h1 class="font-heading font-black text-5xl md:text-7xl text-white uppercase mb-8">The Artist</h1>
-                <div class="space-y-6 text-gray-300 text-lg leading-relaxed">
-                    <p>Ssekito Mark AbdulRahim, known professionally as <span class="text-brand-gold font-bold">Smark Tat</span>, is a powerhouse of talent emerging from the heart of Uganda.</p>
-                    <p>At just 18 years old, Smark Tat represents the voice of the new generation. His sound is a fusion of cultural roots and modern rhythmic energy, perfectly captured in his debut single, <span class="italic text-white">"Ndongo Yoka"</span>.</p>
-                    <p>With a vision to redefine the Ugandan music landscape, he balances his youth with a professional drive that is rare to find. This portfolio is a testament to his journey—one that is only just beginning.</p>
-                </div>
+        <section class="about-hero min-h-[70vh] flex items-center px-4 lg:px-20">
+            <div class="max-w-3xl">
+                <h1 class="font-heading font-black text-5xl md:text-7xl text-white uppercase mb-8">The Story</h1>
+                <p class="text-gray-300 text-lg md:text-xl leading-relaxed mb-6">
+                    Ssekito Mark AbdulRahim, professionally known as <span class="text-brand-gold font-bold">Smark Tat</span>, is an 18-year-old Ugandan musician carving his path in the industry.
+                </p>
+                <p class="text-gray-400 text-lg leading-relaxed">
+                    With the release of his debut single "Ndongo Yoka," Smark Tat has shown that age is no barrier to talent. Combining rhythmic innovation with deep-rooted Ugandan vibes, he is the new face of the youth music movement.
+                </p>
             </div>
         </section>
     </main>
-    <footer class="bg-brand-dark py-12 border-t border-gray-900 text-center">
-        <p class="text-gray-500 text-sm mb-2">&copy; 2026 Ssekito Mark AbdulRahim.</p>
-        <p class="text-gray-600 text-xs uppercase tracking-widest">Dev by <a href="developer.html" class="text-brand-gold">Icii White</a></p>
+
+    <footer class="bg-brand-gray py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <p class="text-gray-500 text-sm mb-4">&copy; 2026 Ssekito Mark AbdulRahim. All rights reserved.</p>
+            <p class="text-gray-600 text-xs uppercase tracking-widest font-semibold">
+                Designed & Developed by <a href="developer.html" class="text-brand-gold hover:text-white transition duration-300">Icii White</a>
+            </p>
+        </div>
     </footer>
+
     <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
         });
     </script>
 </body>
