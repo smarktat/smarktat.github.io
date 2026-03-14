@@ -20,13 +20,16 @@
         body { background-color: #000000; color: #F5F5F5; overflow-x: hidden; }
         .btn-hover { transition: all 0.3s ease; }
         .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(255, 215, 0, 0.3); }
+        input[type="file"]::file-selector-button {
+            background: #FFD700; color: black; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-right: 15px;
+        }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen">
     <nav class="bg-brand-gray bg-opacity-95 backdrop-blur-md fixed w-full z-50 top-0 left-0 border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 flex items-center">
                     <a href="index.html" class="font-heading font-black text-2xl tracking-tighter text-white uppercase">Smark <span class="text-brand-gold">Tat</span></a>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
@@ -37,7 +40,7 @@
                     <a href="contact.html" class="bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-bold uppercase tracking-wider btn-hover">Bookings</a>
                 </div>
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-300 focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-gray-300">
                         <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                             <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -47,45 +50,38 @@
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-brand-gray border-b border-gray-800 absolute w-full left-0 shadow-xl">
-            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col items-center text-center">
-                <a href="index.html" class="block w-full text-gray-300 py-3">Home</a>
-                <a href="about.html" class="block w-full text-gray-300 py-3">About</a>
-                <a href="music.html" class="block w-full text-gray-300 py-3">Music</a>
-                <a href="comments.html" class="block w-full text-brand-gold py-3">Fan Zone</a>
-                <a href="contact.html" class="block w-full bg-brand-gold text-brand-dark font-bold py-3 rounded-lg mt-4">Bookings</a>
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col items-center">
+                <a href="index.html" class="block w-full text-center text-gray-300 font-semibold text-lg py-3">Home</a>
+                <a href="about.html" class="block w-full text-center text-gray-300 font-semibold text-lg py-3">About</a>
+                <a href="music.html" class="block w-full text-center text-gray-300 font-semibold text-lg py-3">Music</a>
+                <a href="comments.html" class="block w-full text-center text-brand-gold font-semibold text-lg py-3">Fan Zone</a>
+                <a href="contact.html" class="block w-full text-center bg-brand-gold text-brand-dark font-bold text-lg py-3 rounded-lg mt-4">Bookings</a>
             </div>
         </div>
     </nav>
 
     <main class="flex-grow pt-32 px-4">
         <div class="max-w-3xl mx-auto">
-            <h1 class="font-heading font-black text-4xl md:text-5xl text-white uppercase mb-4 text-center">Fan Wall</h1>
-            <p class="text-center text-gray-400 mb-12 uppercase tracking-widest text-sm">Leave your mark on the Ndongo Yoka journey</p>
+            <h1 class="font-heading font-black text-4xl text-white uppercase mb-12 text-center tracking-tighter">Fan Wall</h1>
             
-            <div class="bg-brand-gray border border-gray-800 p-8 rounded-3xl mb-16">
+            <div class="bg-brand-gray border border-gray-800 p-8 rounded-3xl mb-12">
                 <form id="commentForm" class="space-y-6">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-widest text-brand-gold mb-2">Your Name</label>
-                        <input type="text" id="fanName" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:border-brand-gold outline-none text-white" required>
+                    <input type="text" id="fanName" placeholder="NAME" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:border-brand-gold outline-none text-white uppercase font-bold text-sm tracking-widest" required>
+                    <div class="bg-black border border-gray-800 p-4 rounded-xl">
+                        <label class="block text-gray-500 text-[10px] uppercase mb-2 font-black tracking-widest">Select Profile Image</label>
+                        <input type="file" id="fanPhoto" accept="image/*" class="text-xs text-gray-400" required>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-widest text-brand-gold mb-2">Profile Picture URL (Optional)</label>
-                        <input type="url" id="fanPic" placeholder="https://..." class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:border-brand-gold outline-none text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-widest text-brand-gold mb-2">Message</label>
-                        <textarea id="fanMessage" class="w-full bg-black border border-gray-800 p-4 rounded-xl h-32 focus:border-brand-gold outline-none text-white" required></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-brand-gold text-brand-dark font-black py-4 rounded-xl uppercase tracking-widest btn-hover">Send Message</button>
+                    <textarea id="fanMessage" placeholder="MESSAGE" class="w-full bg-black border border-gray-800 p-4 rounded-xl h-32 focus:border-brand-gold outline-none text-white font-semibold text-sm" required></textarea>
+                    <button type="submit" id="submitBtn" class="w-full bg-brand-gold text-brand-dark font-black py-4 rounded-xl uppercase tracking-widest btn-hover">Post Comment</button>
                 </form>
             </div>
 
-            <div id="commentsDisplay" class="space-y-8 pb-20"></div>
+            <div id="commentsDisplay" class="space-y-6 pb-20"></div>
         </div>
     </main>
 
     <footer class="bg-brand-gray py-12 border-t border-gray-800 text-center">
-        <p class="text-gray-600 text-xs uppercase tracking-widest font-semibold">Designed & Developed by <a href="developer.html" class="text-brand-gold">Icii White</a></p>
+        <p class="text-gray-600 text-[10px] uppercase tracking-[0.3em] font-bold">Dev by <a href="developer.html" class="text-brand-gold hover:text-white transition">Icii White</a></p>
     </footer>
 
     <script>
@@ -97,35 +93,67 @@
             document.getElementById('close-icon').classList.toggle('hidden');
         });
 
+        const GITHUB_TOKEN = "{{INJECTED_TOKEN}}"; 
+        const REPO_OWNER = "smarktat";
+        const REPO_NAME = "smarktat.github.io";
+
         async function loadComments() {
             try {
                 const res = await fetch('comments.json');
                 const data = await res.json();
-                const container = document.getElementById('commentsDisplay');
-                container.innerHTML = data.reverse().map(c => `
-                    <div class="flex items-start gap-4 p-6 bg-brand-gray border border-gray-900 rounded-2xl">
-                        <img src="${c.image}" class="w-16 h-16 rounded-full border-2 border-brand-gold object-cover flex-shrink-0" onerror="this.src='https://via.placeholder.com/100?text=Fan'">
+                document.getElementById('commentsDisplay').innerHTML = data.reverse().map(c => `
+                    <div class="flex gap-4 p-6 bg-brand-gray border border-gray-900 rounded-2xl">
+                        <img src="${c.image}" class="w-14 h-14 rounded-full object-cover border-2 border-brand-gold">
                         <div>
-                            <h4 class="font-heading font-bold text-white uppercase text-sm mb-1">${c.name}</h4>
-                            <p class="text-gray-400 leading-relaxed">${c.message}</p>
+                            <h4 class="font-bold text-white uppercase text-[10px] tracking-widest">${c.name}</h4>
+                            <p class="text-gray-400 mt-2 text-sm leading-relaxed">${c.message}</p>
                         </div>
                     </div>
                 `).join('');
-            } catch (e) { console.log("No comments yet."); }
+            } catch (e) {}
         }
 
-        document.getElementById('commentForm').addEventListener('submit', function(e) {
+        document.getElementById('commentForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('fanName').value;
-            const pic = document.getElementById('fanPic').value || 'https://via.placeholder.com/100';
-            const msg = document.getElementById('fanMessage').value;
-            const body = JSON.stringify({ name: name, image: pic, message: msg });
-            const issueTitle = "COMMENT_ENTRY";
-            const githubRepoUrl = "https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new?title=" + encodeURIComponent(issueTitle) + "&body=" + encodeURIComponent(body);
-            window.open(githubRepoUrl, '_blank');
-            alert("To protect your data, please click 'Submit New Issue' on the next page to post your comment!");
-        });
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "PROCESSING...";
+            submitBtn.disabled = true;
 
+            const name = document.getElementById('fanName').value;
+            const message = document.getElementById('fanMessage').value;
+            const file = document.getElementById('fanPhoto').files[0];
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async () => {
+                const base64Image = reader.result.split(',')[1];
+                
+                try {
+                    await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/dispatches`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `token ${GITHUB_TOKEN}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        },
+                        body: JSON.stringify({
+                            event_type: 'new_comment',
+                            client_payload: {
+                                name: name,
+                                message: message,
+                                image_data: base64Image,
+                                image_name: `${Date.now()}_fan.jpg`
+                            }
+                        })
+                    });
+                    alert("POSTED. UPDATE LIVE IN 60s.");
+                    location.reload();
+                } catch (err) {
+                    alert("ERROR.");
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "POST COMMENT";
+                }
+            };
+        });
         loadComments();
     </script>
 </body>
