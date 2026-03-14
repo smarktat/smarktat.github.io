@@ -1,0 +1,45 @@
+name: Backend Process
+on:
+  issues:
+    types: [opened]
+jobs:
+  process_comment:
+    if: contains(github.event.issue.title, 'COMMENT_ENTRY')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.MY_PERSONAL_TOKEN }}
+      
+      - name: Setup Environment
+        run: |
+          mkdir -p fan_pics
+          if [ ! -f comments.json ]; then echo "[]" > comments.json; fi
+
+      - name: Process Fan Data
+        run: |
+          RAW_DATA='${{ github.event.issue.body }}'
+          NAME=$(echo $RAW_DATA | jq -r '.name')
+          IMG_URL=$(echo $RAW_DATA | jq -r '.image')
+          MSG=$(echo $RAW_DATA | jq -r '.message')
+          TIMESTAMP=$(date +%s)
+          FILE_NAME="fan_pics/${TIMESTAMP}_pic.jpg"
+          
+          curl -L -o "$FILE_NAME" "$IMG_URL" || cp "me.png" "$FILE_NAME"
+          
+          NEW_ENTRY=$(jq -n --arg n "$NAME" --arg i "$FILE_NAME" --arg m "$MSG" '{name: $n, image: $i, message: $m}')
+          jq ". += [$NEW_ENTRY]" comments.json > temp.json && mv temp.json comments.json
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "Smark-Backend"
+          git config --global user.email "smarktat@github.io"
+          git add comments.json fan_pics/
+          git commit -m "New Fan Comment from $NAME"
+          git push
+
+      - name: Close Issue
+        run: gh issue close ${{ github.event.issue.number }} --reason "completed"
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_TOKEN }}
